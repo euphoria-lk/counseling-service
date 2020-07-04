@@ -12,7 +12,6 @@ router.get('/:pageCount',getCountedCounsellors, function(req, res) {
 async function getCountedCounsellors(req, res, next) {
   try{
     const counselors= await Counselor.find().limit(parseInt(req.params.pageCount));
-    // res.Counselors =counselors;
     res.status(200).json(counselors);
   }catch(err){
     res.status(500).send({
@@ -38,11 +37,11 @@ router.post('/appointments', async function(req,res,next){
       });
       console.log("this is req user"+reqCounselor);
       if(!reqUser){
-        return await res.status(500).json({
+        return await res.status(201).json({
           message:"user not found"
         })
       }else if(!reqCounselor){
-         return await res.status(500).json({
+         return await res.status(201).json({
           message:"counselor not found"
         })
       }else{
@@ -56,7 +55,7 @@ router.post('/appointments', async function(req,res,next){
           endTime:req.body.endTime
           })
           const savedAppointment= await newAppointment.save();
-          await res.status(201).send({
+          await res.status(200).send({
             success:true,
             message:"new Appointment saved successfully"
           })
