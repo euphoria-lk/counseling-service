@@ -4,7 +4,7 @@ var router = express.Router();
 var Counselor=require('../models/Counselor');
 var Appointment=require('../models/Appointment');
 var User=require('../models/User');
-
+var ObjectId = require('mongodb').ObjectID;
 /* GET Counselors listing. */
 router.get('/:pageCount',getCountedCounsellors, function(req, res) {
   res.send(res.getcountedCounsellors);
@@ -23,10 +23,53 @@ async function getCountedCounsellors(req, res, next) {
   next();
 
 }
+router.get('/user/:email',async function(req,res,next){
+try{
+  const user = await User.findOne({ email: req.params.email})
+  if(user){
+    return res.status(200).json(user);
+  }else{
+    return res.status(201).send({
+      message:'no such a user'
+    })
+  }
+}catch(err){
+  console.log(err);
+  res.status(500).send({
+    message:err
+  })
+}
+
+})
+
+router.get('/profile/:counselor',async function(req,res,next){
+  try{
+    const counselorEmail= req.params.counselor.toString();
+  
+    const appointments =await Appointment.find({
+      counselor:counselorEmail
+    });
+  
+    // console.log(userById.firstname);
+  if(appointments.length<1){
+    res.status(200).json({
+      message:"no upcoming appointments"
+    })
+  }else{
+    res.status(201).json(appointments);
+  }
+
+  }catch(err){
+    console.log(err)
+    res.status(500).send({
+      message:err
+    })
+  }
+})
 
 router.post('/appointments', async function(req,res,next){
   try{
-      console.log("first Name"+req.body.firstname);
+      // console.log("first Name"+req.body.firstname);
       const reqCounselor= await Counselor.findOne({
         name:req.body.counselor
       });
@@ -36,6 +79,7 @@ router.post('/appointments', async function(req,res,next){
         lastname:req.body.lastname
       });
       console.log("this is req user"+reqCounselor);
+      console.log("this is counselor"+reqCounselor);
       if(!reqUser){
         return await res.status(200).json({
           message:"user not found"
@@ -47,9 +91,9 @@ router.post('/appointments', async function(req,res,next){
       }else{
          const newAppointment= new Appointment({
          
-          user:reqUser,
+          user:reqUser.email,
           description:req.body.description,
-          counselor:reqCounselor,
+          counselor:reqCounselor.email,
           title:req.body.title,
           startTime:req.body.startTime,
           endTime:req.body.endTime

@@ -14,8 +14,8 @@ const connectDb = () => {
 const appointmentSchema = new mongoose.Schema(
   {
     user: { 
-         type: mongoose.Schema.Types.ObjectId,
-          ref: 'User'
+         type:String,
+         required:true
     },
     title:{
         type:String,
@@ -26,8 +26,8 @@ const appointmentSchema = new mongoose.Schema(
         required: true
     },
      counselor: { 
-         type: mongoose.Schema.Types.ObjectId, 
-         ref: 'Counselor'
+         type: String, 
+         required: true
      },
     startTime:{
         type:String,
