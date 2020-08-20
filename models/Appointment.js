@@ -29,11 +29,11 @@ const appointmentSchema = new mongoose.Schema(
          type: String, 
          required: true
      },
-    startTime:{
+    timeSlot:{
         type:String,
         required: true
     },
-    endTime:{
+    bookingDate:{
         type:String,
         required: true
     }  
