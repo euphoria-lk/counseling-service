@@ -22,7 +22,7 @@ router.post('/send', function(req, res, next) {
 router.post('/init',function(req, res, next){
    try{
      var string = req.body.string;
-    const client = new StreamChat('chat_api_key', 'chat_api_secret');
+    const client = new StreamChat('r3qdy2xxezkj', 'cn4sm8s56h525y6q5zfbf78d9uaq7yccqf5sycus8a67pcbs62fp62rzrf93xs7f');
     const token = client.createToken(string);   
     res.json(token);
   }catch(err){
