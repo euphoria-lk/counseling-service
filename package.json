@@ -13,6 +13,7 @@
     "jade": "~1.11.0",
     "mongoose": "^5.9.21",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "stream-chat": "^2.5.0"
   }
 }

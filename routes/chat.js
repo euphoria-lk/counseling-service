@@ -5,16 +5,30 @@ var Message=require('../models/Message');
 var ChatModel=require('../models/ChatRoom');
 var User=require('../models/User');
 var ObjectId = require('mongodb').ObjectID;
+// import {StreamChat} from 'stream-chat';
+var StreamChat= require('stream-chat').StreamChat;
 
 
 // develp in future as own chat module
 router.post('/send', function(req, res, next) {
   try{
-    
+   
   }catch(err){
     res.status(500).send({message:err.message})
 
   }
 });
+
+router.post('/init',function(req, res, next){
+   try{
+     var string = req.body.string;
+    const client = new StreamChat('chat_api_key', 'chat_api_secret');
+    const token = client.createToken(string);   
+    res.json(token);
+  }catch(err){
+    res.status(500).send({message:err.message})
+
+  }
+})
 
 module.exports = router;

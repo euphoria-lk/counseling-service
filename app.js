@@ -8,6 +8,7 @@ var logger = require('morgan');
 var mongoose = require ('mongoose');
 var indexRouter = require('./routes/index');
 var counselorRouter = require('./routes/counselor');
+var chatRouter = require('./routes/chat');
 const url = require('./config/DBConfig');
 
 var app = express();
@@ -32,6 +33,7 @@ app.use(function(req, res, next) {
 });
 app.use('/', indexRouter);
 app.use('/api/v1/counselling-service/counsellor/', counselorRouter);
+app.use('/api/v1/counselling-service/chat/', chatRouter);
 
 
 // catch 404 and forward to error handler
