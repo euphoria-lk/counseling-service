@@ -112,6 +112,7 @@ router.post('/appointments', async function(req,res,next){
   }
   
 });
+
 // url http://localhost:5000/api/v1/counselling-service/counsellor/getAvailableTimes/email&year-month-day
 router.get('/getAvailableTimes/:counselor&:day',async function(req,res,next){
   try{
@@ -152,7 +153,6 @@ router.get('/getAvailableTimes/:counselor&:day',async function(req,res,next){
   }
 
 })
-
 
 module.exports = router;
 
