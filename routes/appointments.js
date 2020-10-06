@@ -14,8 +14,24 @@ router.get('/user/:email',async function(req,res,next){
 });
 
 router.get('/:id',async function(req,res,next){
-    const appointment = await Appointment.findById(req.params.id);
-    res.status(200).json(appointment);
+    let appointment=null;
+    await Appointment.findById(req.params.id,(err,app)=>{
+        appointment=app;
+    })
+
+    let counselor=null;
+    await Counselor.find({
+        email:appointment.counselor,
+    },(err,con)=>{
+        counselor=con;
+    });
+
+    let newappointment = {
+        ...appointment._doc,
+        counsellorObj:counselor,
+    }
+    console.log(appointment);
+    res.status(200).json(newappointment);
 })
 
 module.exports = router;

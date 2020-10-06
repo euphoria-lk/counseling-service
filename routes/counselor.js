@@ -98,6 +98,7 @@ router.post('/appointments', async function(req,res,next){
           timeSlot:req.body.timeSlot,
           bookingDate:req.body.bookingDate
           })
+          console.log('New Appointment',newAppointment);
           const savedAppointment= await newAppointment.save();
           await res.status(201).send({
             success:true,
@@ -112,6 +113,8 @@ router.post('/appointments', async function(req,res,next){
   }
   
 });
+
+// router.get('/findByEmail/:email', async function(req,res,next))
 
 // url http://localhost:5000/api/v1/counselling-service/counsellor/getAvailableTimes/email&year-month-day
 router.get('/getAvailableTimes/:counselor&:day',async function(req,res,next){
